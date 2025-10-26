@@ -44,63 +44,63 @@ export default function FilterSidebar({
       />
 
       <aside
-        className={`fixed lg:sticky lg:top-[80px] left-0 h-screen lg:h-[calc(100vh-80px)] bg-white border-r border-gray-200 p-6 overflow-y-auto transition-transform duration-300 z-50 w-80 ${
+        className={`fixed lg:sticky lg:top-[80px] left-0 h-screen lg:h-[calc(100vh-80px)] bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 p-6 overflow-y-auto transition-transform duration-300 z-50 w-80 ${
           isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
         }`}
       >
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center">
-            <Filter className="w-5 h-5 mr-2 text-gray-700" />
-            <h2 className="text-lg font-semibold text-gray-900">Filters</h2>
+            <Filter className="w-5 h-5 mr-2 text-gray-700 dark:text-gray-300" />
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Filters</h2>
           </div>
           <button
             onClick={onClose}
-            className="lg:hidden p-1 hover:bg-gray-100 rounded-full transition-colors"
+            className="lg:hidden p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors"
           >
-            <X className="w-5 h-5 text-gray-600" />
+            <X className="w-5 h-5 text-gray-600 dark:text-gray-400" />
           </button>
         </div>
 
         <div className="space-y-6">
           <div>
-            <h3 className="text-sm font-semibold text-gray-700 mb-3">Date Range</h3>
+            <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">Date Range</h3>
             <div className="space-y-3">
               <div>
-                <label className="block text-xs text-gray-600 mb-1">Start Date</label>
+                <label className="block text-xs text-gray-600 dark:text-gray-400 mb-1">Start Date</label>
                 <input
                   type="date"
                   value={startDate}
                   onChange={(e) => onDateChange(e.target.value, endDate)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
               <div>
-                <label className="block text-xs text-gray-600 mb-1">End Date</label>
+                <label className="block text-xs text-gray-600 dark:text-gray-400 mb-1">End Date</label>
                 <input
                   type="date"
                   value={endDate}
                   onChange={(e) => onDateChange(startDate, e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
             </div>
           </div>
 
           <div>
-            <h3 className="text-sm font-semibold text-gray-700 mb-3">Scientific Domains</h3>
+            <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">Scientific Domains</h3>
             <div className="space-y-2">
               {availableDomains.map((domain) => (
                 <label
                   key={domain}
-                  className="flex items-center cursor-pointer hover:bg-gray-50 p-2 rounded-lg transition-colors"
+                  className="flex items-center cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 p-2 rounded-lg transition-colors"
                 >
                   <input
                     type="checkbox"
                     checked={selectedDomains.includes(domain)}
                     onChange={() => toggleDomain(domain)}
-                    className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                    className="w-4 h-4 text-blue-600 border-gray-300 dark:border-gray-600 rounded focus:ring-blue-500 dark:bg-gray-700"
                   />
-                  <span className="ml-3 text-sm text-gray-700">{domain}</span>
+                  <span className="ml-3 text-sm text-gray-700 dark:text-gray-300">{domain}</span>
                 </label>
               ))}
             </div>
@@ -108,7 +108,7 @@ export default function FilterSidebar({
 
           <button
             onClick={clearFilters}
-            className="w-full py-2 px-4 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg text-sm font-medium transition-colors"
+            className="w-full py-2 px-4 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 rounded-lg text-sm font-medium transition-colors"
           >
             Clear All Filters
           </button>

@@ -34,38 +34,43 @@ export default function ArticleCard({ article, onClick }: ArticleCardProps) {
 
   return (
     <div
-      className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 p-6 cursor-pointer border border-gray-200"
+      className="group bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 p-6 cursor-pointer border border-gray-200 dark:border-gray-700 overflow-hidden relative transform hover:-translate-y-1"
       onClick={onClick}
     >
-      <div className="flex items-start justify-between mb-3">
-        <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${domainColorClass}`}>
-          <Tag className="w-3 h-3 mr-1" />
-          {article.domain}
-        </span>
-        <span className="text-xs text-gray-500 flex items-center">
-          <Calendar className="w-3 h-3 mr-1" />
-          {formatDate(article.published_date)}
-        </span>
-      </div>
+      {/* Gradient overlay on hover */}
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-purple-50/50 dark:from-blue-900/20 dark:to-purple-900/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      
+      <div className="relative z-10">
+        <div className="flex items-start justify-between mb-3">
+          <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold ${domainColorClass} shadow-sm`}>
+            <Tag className="w-3 h-3 mr-1" />
+            {article.domain}
+          </span>
+          <span className="text-xs text-gray-500 dark:text-gray-400 flex items-center bg-gray-50 dark:bg-gray-700 px-2 py-1 rounded-md">
+            <Calendar className="w-3 h-3 mr-1" />
+            {formatDate(article.published_date)}
+          </span>
+        </div>
 
-      <h3 className="text-xl font-semibold text-gray-900 mb-3 line-clamp-2 hover:text-blue-600 transition-colors">
-        {article.title}
-      </h3>
+        <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-3 line-clamp-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+          {article.title}
+        </h3>
 
-      <p className="text-gray-600 text-sm mb-4 line-clamp-3">{article.summary}</p>
+        <p className="text-gray-600 dark:text-gray-300 text-sm mb-4 line-clamp-3 leading-relaxed">{article.summary}</p>
 
-      <div className="flex items-center justify-between pt-4 border-t border-gray-100">
-        <span className="text-xs text-gray-500 font-medium">{article.source}</span>
-        <a
-          href={article.link}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center text-blue-600 hover:text-blue-800 text-sm font-medium transition-colors"
-          onClick={(e) => e.stopPropagation()}
-        >
-          Read Original
-          <ExternalLink className="w-4 h-4 ml-1" />
-        </a>
+        <div className="flex items-center justify-between pt-4 border-t border-gray-100 dark:border-gray-700">
+          <span className="text-xs text-gray-500 dark:text-gray-400 font-semibold uppercase tracking-wide">{article.source}</span>
+          <a
+            href={article.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center text-blue-600 hover:text-blue-800 text-sm font-semibold transition-all duration-200 hover:scale-105"
+            onClick={(e) => e.stopPropagation()}
+          >
+            Read Original
+            <ExternalLink className="w-4 h-4 ml-1" />
+          </a>
+        </div>
       </div>
     </div>
   );

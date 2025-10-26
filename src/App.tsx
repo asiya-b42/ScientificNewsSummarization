@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Search, RefreshCw, Menu, Newspaper, Loader2 } from 'lucide-react';
+import { Search, RefreshCw, Menu, Newspaper, Loader2, Moon, Sun } from 'lucide-react';
 import ArticleCard from './components/ArticleCard';
 import FilterSidebar from './components/FilterSidebar';
 import ArticleModal from './components/ArticleModal';
@@ -15,6 +15,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [isDark, setIsDark] = useState(false);
 
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedDomains, setSelectedDomains] = useState<string[]>([]);
@@ -81,6 +82,15 @@ function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [page]);
 
+  // Handle dark mode
+  useEffect(() => {
+    if (isDark) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [isDark]);
+
   useEffect(() => {
     const delaySearch = setTimeout(() => {
       if (page === 1) {
@@ -132,35 +142,54 @@ function App() {
   const totalPages = Math.ceil(totalArticles / 20);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
-      <header className="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/30 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 transition-colors duration-300">
+      <header className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-md shadow-lg border-b border-gray-200/50 dark:border-gray-700/50 sticky top-0 z-30 transition-colors duration-300">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
+            <div className="flex items-center space-x-4">
               <button
                 onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-                className="lg:hidden p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                className="lg:hidden p-2 hover:bg-blue-50 rounded-xl transition-all duration-200"
               >
                 <Menu className="w-6 h-6 text-gray-700" />
               </button>
-              <Newspaper className="w-8 h-8 text-blue-600" />
-              <div>
-                <h1 className="text-2xl font-bold text-gray-900">Scientific News Summarizer</h1>
-                <p className="text-sm text-gray-600">AI-powered summaries of the latest research</p>
+              <div className="flex items-center space-x-3">
+                <div className="bg-gradient-to-br from-blue-600 to-purple-600 p-2 rounded-xl shadow-lg">
+                  <Newspaper className="w-8 h-8 text-white" />
+                </div>
+                <div>
+                  <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                    Scientific News Summarizer
+                  </h1>
+                  <p className="text-sm text-gray-600 font-medium">AI-powered summaries of the latest research</p>
+                </div>
               </div>
             </div>
-            <button
-              onClick={handleRefresh}
-              disabled={isRefreshing}
-              className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {isRefreshing ? (
-                <Loader2 className="w-5 h-5 mr-2 animate-spin" />
-              ) : (
-                <RefreshCw className="w-5 h-5 mr-2" />
-              )}
-              {isRefreshing ? 'Refreshing...' : 'Refresh Feed'}
-            </button>
+            <div className="flex items-center space-x-3">
+              <button
+                onClick={() => setIsDark(!isDark)}
+                className="p-3 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 rounded-xl transition-all duration-200"
+                title={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+              >
+                {isDark ? (
+                  <Sun className="w-5 h-5 text-yellow-500" />
+                ) : (
+                  <Moon className="w-5 h-5 text-gray-700" />
+                )}
+              </button>
+              <button
+                onClick={handleRefresh}
+                disabled={isRefreshing}
+                className="flex items-center px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl transform hover:scale-105 disabled:hover:scale-100 font-semibold"
+              >
+                {isRefreshing ? (
+                  <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+                ) : (
+                  <RefreshCw className="w-5 h-5 mr-2" />
+                )}
+                {isRefreshing ? 'Refreshing...' : 'Refresh Feed'}
+              </button>
+            </div>
           </div>
         </div>
       </header>
@@ -179,15 +208,15 @@ function App() {
 
         <main className="flex-1 p-6">
           <div className="max-w-6xl mx-auto">
-            <div className="mb-6">
-              <div className="relative">
-                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+            <div className="mb-8">
+              <div className="relative group">
+                <Search className="absolute left-5 top-1/2 transform -translate-y-1/2 text-blue-500 w-6 h-6 group-focus-within:text-purple-500 transition-colors" />
                 <input
                   type="text"
                   placeholder="Search articles by title or summary..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white shadow-sm"
+                  className="w-full pl-14 pr-5 py-4 border-2 border-gray-200 dark:border-gray-700 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 shadow-sm hover:shadow-md transition-all duration-200 text-lg"
                 />
               </div>
             </div>
@@ -234,21 +263,21 @@ function App() {
                 </div>
 
                 {totalPages > 1 && (
-                  <div className="flex items-center justify-center space-x-2">
+                  <div className="flex items-center justify-center space-x-3 mt-8">
                     <button
                       onClick={() => setPage((p) => Math.max(1, p - 1))}
                       disabled={page === 1}
-                      className="px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                      className="px-6 py-3 bg-white border-2 border-gray-300 rounded-xl hover:bg-gradient-to-r hover:from-blue-500 hover:to-purple-500 hover:text-white hover:border-transparent disabled:opacity-40 disabled:cursor-not-allowed transition-all duration-200 font-semibold shadow-md hover:shadow-lg transform hover:scale-105 disabled:hover:scale-100"
                     >
                       Previous
                     </button>
-                    <span className="px-4 py-2 text-sm text-gray-700">
+                    <div className="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-xl shadow-lg font-bold">
                       Page {page} of {totalPages}
-                    </span>
+                    </div>
                     <button
                       onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
                       disabled={page === totalPages}
-                      className="px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                      className="px-6 py-3 bg-white border-2 border-gray-300 rounded-xl hover:bg-gradient-to-r hover:from-blue-500 hover:to-purple-500 hover:text-white hover:border-transparent disabled:opacity-40 disabled:cursor-not-allowed transition-all duration-200 font-semibold shadow-md hover:shadow-lg transform hover:scale-105 disabled:hover:scale-100"
                     >
                       Next
                     </button>

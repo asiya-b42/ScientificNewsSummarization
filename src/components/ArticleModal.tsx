@@ -58,50 +58,50 @@ export default function ArticleModal({ article, isOpen, onClose }: ArticleModalP
       <div className="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
         <div className="fixed inset-0 transition-opacity bg-black bg-opacity-75" onClick={onClose} />
 
-        <div className="inline-block w-full max-w-4xl my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-2xl rounded-2xl">
-          <div className="sticky top-0 z-10 bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between">
+        <div className="inline-block w-full max-w-4xl my-8 overflow-hidden text-left align-middle transition-all transform bg-white dark:bg-gray-800 shadow-2xl rounded-2xl">
+          <div className="sticky top-0 z-10 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-6 py-4 flex items-center justify-between transition-colors">
             <div className="flex items-center space-x-3">
               <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${domainColorClass}`}>
                 <Tag className="w-3 h-3 mr-1" />
                 {article.domain}
               </span>
-              <span className="text-sm text-gray-500 flex items-center">
+              <span className="text-sm text-gray-500 dark:text-gray-400 flex items-center">
                 <Calendar className="w-4 h-4 mr-1" />
                 {formatDate(article.published_date)}
               </span>
             </div>
             <button
               onClick={onClose}
-              className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+              className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors"
             >
-              <X className="w-5 h-5 text-gray-600" />
+              <X className="w-5 h-5 text-gray-600 dark:text-gray-400" />
             </button>
           </div>
 
           <div className="px-6 py-6 max-h-[calc(100vh-200px)] overflow-y-auto">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">{article.title}</h2>
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">{article.title}</h2>
 
-            <div className="flex items-center justify-between mb-6 pb-4 border-b border-gray-200">
-              <span className="text-sm text-gray-600 font-medium">Source: {article.source}</span>
+            <div className="flex items-center justify-between mb-6 pb-4 border-b border-gray-200 dark:border-gray-700">
+              <span className="text-sm text-gray-600 dark:text-gray-400 font-medium">Source: {article.source}</span>
               <a
                 href={article.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium transition-colors"
+                className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium transition-colors"
               >
                 Read Original Article
                 <ExternalLink className="w-4 h-4 ml-2" />
               </a>
             </div>
 
-            <div className="prose max-w-none">
-              <h3 className="text-lg font-semibold text-gray-900 mb-3">Summary</h3>
-              <p className="text-gray-700 leading-relaxed mb-6">{article.summary}</p>
+            <div className="prose max-w-none dark:prose-invert">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-3">Summary</h3>
+              <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">{article.summary}</p>
 
               {article.full_text && article.full_text.length > 0 && (
                 <>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-3">Full Article Text</h3>
-                  <div className="text-gray-700 leading-relaxed whitespace-pre-wrap">
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-3">Full Article Text</h3>
+                  <div className="text-gray-700 dark:text-gray-300 leading-relaxed whitespace-pre-wrap">
                     {article.full_text}
                   </div>
                 </>
