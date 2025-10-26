@@ -76,6 +76,11 @@ function App() {
     loadDomainStats();
   }, [selectedDomains, startDate, endDate, page]);
 
+  // Scroll to top when page changes
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [page]);
+
   useEffect(() => {
     const delaySearch = setTimeout(() => {
       if (page === 1) {

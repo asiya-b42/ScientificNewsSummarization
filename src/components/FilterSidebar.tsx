@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import { Filter, X } from 'lucide-react';
 
 interface FilterSidebarProps {
@@ -45,7 +44,7 @@ export default function FilterSidebar({
       />
 
       <aside
-        className={`fixed lg:sticky top-0 left-0 h-screen bg-white border-r border-gray-200 p-6 overflow-y-auto transition-transform duration-300 z-50 w-80 ${
+        className={`fixed lg:sticky lg:top-[80px] left-0 h-screen lg:h-[calc(100vh-80px)] bg-white border-r border-gray-200 p-6 overflow-y-auto transition-transform duration-300 z-50 w-80 ${
           isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
         }`}
       >

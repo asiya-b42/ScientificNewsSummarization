@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Article } from '../types/article';
 import { X, ExternalLink, Calendar, Tag } from 'lucide-react';
 
@@ -23,6 +24,23 @@ const domainColors: Record<string, string> = {
 
 export default function ArticleModal({ article, isOpen, onClose }: ArticleModalProps) {
   if (!isOpen || !article) return null;
+
+  // Handle ESC key to close modal
+  useEffect(() => {
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        onClose();
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener('keydown', handleEscape);
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleEscape);
+    };
+  }, [isOpen, onClose]);
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
