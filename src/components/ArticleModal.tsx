@@ -17,6 +17,7 @@ const domainColors: Record<string, string> = {
   'Earth Science': 'bg-teal-100 text-teal-800',
   'Technology': 'bg-gray-100 text-gray-800',
   'Neuroscience': 'bg-pink-100 text-pink-800',
+  'Agriculture': 'bg-amber-100 text-amber-800',
   'General Science': 'bg-slate-100 text-slate-800',
 };
 

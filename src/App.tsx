@@ -34,6 +34,7 @@ function App() {
     'Earth Science',
     'Technology',
     'Neuroscience',
+    'Agriculture',
     'General Science',
   ];
 
